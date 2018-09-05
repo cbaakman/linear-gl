@@ -1,5 +1,5 @@
 # Linear GL
-Some c++ classes and functions to do linear algebra, as used in OpenGL.
+Some C++ classes and functions to do linear algebra, as used in OpenGL.
 
 ## Installing
 Simply include the headers in the include directory in your project.
