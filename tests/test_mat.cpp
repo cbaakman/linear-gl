@@ -1,5 +1,3 @@
-#include <math.h>
-
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MODULE TestMatrix
 #include <boost/test/unit_test.hpp>
@@ -10,7 +8,7 @@
 BOOST_AUTO_TEST_CASE(inverse_test)
 {
     vec3 axis = {0.0f, 1.0f, 0.0f};
-    matrix4 m = MatRotAxis(axis, M_PI_2);
+    matrix4 m = MatRotAxis(axis, PI/2);
 
     vec3 v = {1.0f, -1.0f, 0.5f},
          r = MatInverse(m) * m * v;
@@ -21,7 +19,7 @@ BOOST_AUTO_TEST_CASE(inverse_test)
 BOOST_AUTO_TEST_CASE(rotate_test)
 {
     vec3 axis = {1.0f, 0.0f, 0.0f};
-    matrix4 rot = MatRotAxis(axis, M_PI_2);
+    matrix4 rot = MatRotAxis(axis, PI/2);
 
     vec3 v = {0.0f, 1.0f, 0.0f},
          r = rot * v,

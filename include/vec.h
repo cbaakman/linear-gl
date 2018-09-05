@@ -17,12 +17,13 @@
 #ifndef VEC_H
 #define VEC_H
 
-#undef __STRICT_ANSI__
 #include <math.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <GL/gl.h>
 #include <iostream>
+
+const double PI = acos(-1.0);
 
 
 #define VEC_SUBSCRIPT  GLfloat &operator[](const uintmax_t i) { return v[i]; }
@@ -249,7 +250,7 @@ GLfloat Angle(const vec<N> &v1, const vec<N> &v2)
     if (dot > 0.99999999)
         return 0.0f;
     else if (dot < -0.99999999)
-        return M_PI;
+        return PI;
 
     return acos(dot);
 }
