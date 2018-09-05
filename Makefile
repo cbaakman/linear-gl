@@ -9,4 +9,5 @@ clean:
 	rm -f bin/*
 
 bin/%: tests/%.cpp
+	mkdir -p bin
 	$(CXX) $(CFLAGS) -I include $^ -lboost_unit_test_framework -o $@
