@@ -1,2 +1,5 @@
 # c++ compiled files
 bin/*
+
+# vim editor
+*.swp
