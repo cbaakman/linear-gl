@@ -120,6 +120,7 @@ matrix4 MatTranspose(const matrix4 &m)
     for (i = 0; i < 4; i++)
         for (j = 0; j < 4; j++)
             t[i][j] = m[j][i];
+    return t;
 }
 
 matrix4 MatID(void)
