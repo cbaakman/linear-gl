@@ -1,9 +1,10 @@
 CXX = /usr/bin/g++
 CFLAGS = -std=c++17
+TESTS=vec quat mat
 
 
-all: bin/test_mat
-	bin/test_mat
+all: $(TESTS:%=bin/test_%)
+	$(foreach x,$^,$(x);)
 
 clean:
 	rm -f bin/*

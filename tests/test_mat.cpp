@@ -8,18 +8,22 @@
 BOOST_AUTO_TEST_CASE(inverse_test)
 {
     vec3 axis = {0.0f, 1.0f, 0.0f};
-    matrix4 m = MatRotAxis(axis, PI/2);
+    matrix4 mr = MatRotAxis(axis, PI/2),
+            mc = MatInverse(mr) * mr,
+            mi = MatID();
 
     vec3 v = {1.0f, -1.0f, 0.5f},
-         r = MatInverse(m) * m * v;
+         r = mi * v;
 
+    BOOST_CHECK_EQUAL(mc, mi);
     BOOST_CHECK_EQUAL(v, r);
 }
 
 BOOST_AUTO_TEST_CASE(rotate_test)
 {
-    vec3 axis = {1.0f, 0.0f, 0.0f};
-    matrix4 rot = MatRotAxis(axis, PI/2);
+    // Rotate 90 degrees around x-axis.
+    quaternion q = {1.0f, 0.0f, 0.0f, 1.0f};
+    matrix4 rot = MatQuat(q);
 
     vec3 v = {0.0f, 1.0f, 0.0f},
          r = rot * v,
@@ -36,6 +40,18 @@ BOOST_AUTO_TEST_CASE(translate_test)
     vec3 v = {1.0f, 0.0f, 0.0f},
          r = tr * v,
          c = v + t;
+
+    BOOST_CHECK_EQUAL(r, c);
+}
+
+BOOST_AUTO_TEST_CASE(scale_test)
+{
+    vec3 v = {1.0f, -1.0f, 0.5f};
+
+    matrix4 sc = MatScale(2.0f, 0.5f, 4.0f);
+
+    vec3 r = sc * v,
+         c = {2.0f, -0.5f, 2.0f};
 
     BOOST_CHECK_EQUAL(r, c);
 }
