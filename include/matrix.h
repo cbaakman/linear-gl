@@ -37,6 +37,49 @@ struct matrix4
     }
 };
 
+bool operator==(const matrix4 &m1, const matrix4 &m2)
+{
+    size_t i, j;
+    for (i = 0; i < 4; i++)
+        for (j = 0; j < 4; j++)
+            if (m1[i][j] != m2[i][j])
+                return false;
+
+    return true;
+}
+
+bool operator!=(const matrix4 &m1, const matrix4 &m2)
+{
+    size_t i, j;
+    for (i = 0; i < 4; i++)
+        for (j = 0; j < 4; j++)
+            if (m1[i][j] != m2[i][j])
+                return true;
+
+    return false;
+}
+
+std::ostream &operator<<(std::ostream &os, const matrix4 &m)
+{
+    size_t i, j;
+    for (i = 0; i < 4; i++)
+    {
+        os << std::endl;
+
+        os << "|";
+        for (j = 0; j < 4; j++)
+        {
+            if (j > 0)
+                os << ", ";
+            os << m[j][i];
+        }
+        os << "|";
+    }
+    os << std::endl;
+
+    return os;
+}
+
 GLfloat Determinant(const matrix4 &m)
 {
     GLfloat fA0 = m[0][0] * m[1][1] - m[0][1] * m[1][0],
@@ -180,6 +223,17 @@ matrix4 MatQuat(const quaternion &q)  // also a rotation matrix
     m[0][1] =        f * (xy + zw); m[1][1] = 1.0f - f * (x2 + z2); m[2][1] =        f * (yz - xw); m[3][1] = 0.0f;
     m[0][2] =        f * (xz - yw); m[1][2] =        f * (yz + xw); m[2][2] = 1.0f - f * (x2 + y2); m[3][2] = 0.0f;
     m[0][3] = 0.0f;                 m[1][3] = 0.0f;                 m[2][3] = 0.0f;                 m[3][3] = 1.0f;
+
+    return m;
+}
+
+matrix4 MatScale(const float sx, const float sy, const float sz)
+{
+    matrix4 m = MatID();
+
+    m[0][0] = sx;
+    m[1][1] = sy;
+    m[2][2] = sz;
 
     return m;
 }
