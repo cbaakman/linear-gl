@@ -16,3 +16,10 @@ The C++ compiler needs to know where to find boost.
 On windows, run test.cmd
 
 On unix-like systems, run the Makefile
+
+### Description of the tests
+
+The compile test is to make sure that the headers can be imported into two
+different modules without problems.
+
+The vec, mat and quat tests make sure that the code is mathematically correct.
