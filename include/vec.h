@@ -43,6 +43,23 @@ struct vec
 
 
 template<>
+struct vec<2>
+{
+    union
+    {
+        GLfloat v[2];
+        struct { GLfloat x, y; };
+    };
+
+    VEC_SUBSCRIPT
+    CONST_VEC_SUBSCRIPT
+    VEC_DEFAULT_CONSTRUCTOR
+
+    vec(const GLfloat _x, const GLfloat _y): x(_x), y(_y) {}
+};
+
+
+template<>
 struct vec<3>
 {
     union
@@ -83,7 +100,7 @@ struct vec<4>
 };
 
 template <int N>
-vec<N> &operator+=(vec<N> &v1, const vec<N> &v2)
+inline vec<N> &operator+=(vec<N> &v1, const vec<N> &v2)
 {
     size_t i;
     for(i = 0; i < N; i++)
@@ -92,7 +109,7 @@ vec<N> &operator+=(vec<N> &v1, const vec<N> &v2)
 }
 
 template <int N>
-vec<N> &operator-=(vec<N> &v1, const vec<N> &v2)
+inline vec<N> &operator-=(vec<N> &v1, const vec<N> &v2)
 {
     size_t i;
     for(i = 0; i < N; i++)
@@ -101,7 +118,7 @@ vec<N> &operator-=(vec<N> &v1, const vec<N> &v2)
 }
 
 template <size_t N>
-const vec<N> operator+(const vec<N> &v1, const vec<N> &v2)
+inline const vec<N> operator+(const vec<N> &v1, const vec<N> &v2)
 {
     vec<N> sum;
     size_t i = 0;
@@ -111,7 +128,7 @@ const vec<N> operator+(const vec<N> &v1, const vec<N> &v2)
 }
 
 template <size_t N>
-const vec<N> operator-(const vec<N> &v1, const vec<N> &v2)
+inline const vec<N> operator-(const vec<N> &v1, const vec<N> &v2)
 {
     vec<N> sub;
     size_t i = 0;
@@ -121,7 +138,7 @@ const vec<N> operator-(const vec<N> &v1, const vec<N> &v2)
 }
 
 template <size_t N>
-const vec<N> operator-(const vec<N> &v)
+inline const vec<N> operator-(const vec<N> &v)
 {
     vec<N> neg;
     size_t i = 0;
@@ -131,7 +148,7 @@ const vec<N> operator-(const vec<N> &v)
 }
 
 template <size_t N>
-const vec<N> operator*(const vec<N> &v, const GLfloat scalar)
+inline const vec<N> operator*(const vec<N> &v, const GLfloat scalar)
 {
     vec<N> mul;
     size_t i = 0;
@@ -141,13 +158,13 @@ const vec<N> operator*(const vec<N> &v, const GLfloat scalar)
 }
 
 template <size_t N>
-const vec<N> operator*(const GLfloat scalar, const vec<N> &v)
+inline const vec<N> operator*(const GLfloat scalar, const vec<N> &v)
 {
     return v * scalar;
 }
 
 template <size_t N>
-const vec<N> operator/(const vec<N> &v, const GLfloat scalar)
+inline const vec<N> operator/(const vec<N> &v, const GLfloat scalar)
 {
     vec<N> div;
     size_t i = 0;
@@ -157,7 +174,7 @@ const vec<N> operator/(const vec<N> &v, const GLfloat scalar)
 }
 
 template <int N>
-vec<N> &operator*=(vec<N> &v, const GLfloat scalar)
+inline vec<N> &operator*=(vec<N> &v, const GLfloat scalar)
 {
     size_t i;
     for(i = 0; i < N; i++)
@@ -166,7 +183,7 @@ vec<N> &operator*=(vec<N> &v, const GLfloat scalar)
 }
 
 template <int N>
-vec<N> &operator/=(vec<N> &v, const GLfloat scalar)
+inline vec<N> &operator/=(vec<N> &v, const GLfloat scalar)
 {
     size_t i;
     for(i = 0; i < N; i++)
@@ -175,7 +192,7 @@ vec<N> &operator/=(vec<N> &v, const GLfloat scalar)
 }
 
 template <size_t N>
-bool operator==(const vec<N> &v1, const vec<N> &v2)
+inline bool operator==(const vec<N> &v1, const vec<N> &v2)
 {
     size_t i = 0;
     for (i = 0; i < N; i++)
@@ -185,7 +202,7 @@ bool operator==(const vec<N> &v1, const vec<N> &v2)
     return true;
 }
 template <size_t N>
-bool operator!=(const vec<N> &v1, const vec<N> &v2)
+inline bool operator!=(const vec<N> &v1, const vec<N> &v2)
 {
     size_t i = 0;
     for (i = 0; i < N; i++)
@@ -196,7 +213,7 @@ bool operator!=(const vec<N> &v1, const vec<N> &v2)
 }
 
 template <size_t N>
-std::ostream& operator<<(std::ostream& os, const vec<N> v)
+inline std::ostream& operator<<(std::ostream& os, const vec<N> v)
 {
     os << "{";
     size_t i = 0;
@@ -211,19 +228,19 @@ std::ostream& operator<<(std::ostream& os, const vec<N> v)
 }
 
 template <size_t N>
-vec<N> Unit(const vec<N> &v)
+inline vec<N> Unit(const vec<N> &v)
 {
     return v / Length(v);
 }
 
 template <size_t N>
-GLfloat Length(const vec<N> &v)
+inline GLfloat Length(const vec<N> &v)
 {
     return sqrt(Length2(v));
 }
 
 template <size_t N>
-GLfloat Length2(const vec<N> &v)
+inline GLfloat Length2(const vec<N> &v)
 {
     GLfloat l2 = 0.0f;
     size_t i;
@@ -233,7 +250,7 @@ GLfloat Length2(const vec<N> &v)
 }
 
 template <size_t N>
-GLfloat Dot(const vec<N> &v1, const vec<N> &v2)
+inline GLfloat Dot(const vec<N> &v1, const vec<N> &v2)
 {
     GLfloat r = 0.0f;
     size_t i;
@@ -243,7 +260,7 @@ GLfloat Dot(const vec<N> &v1, const vec<N> &v2)
 }
 
 template <size_t N>
-GLfloat Angle(const vec<N> &v1, const vec<N> &v2)
+inline GLfloat Angle(const vec<N> &v1, const vec<N> &v2)
 {
     GLfloat dot = Dot(v1.Unit(), v2.Unit());
 
@@ -257,7 +274,7 @@ GLfloat Angle(const vec<N> &v1, const vec<N> &v2)
 
 typedef vec<3> vec3;
 
-vec3 Cross(const vec3 &v1, const vec3 &v2)
+inline vec3 Cross(const vec3 &v1, const vec3 &v2)
 {
     return {v1.y * v2.z - v2.y * v1.z,
             v1.z * v2.x - v1.x * v2.z,
@@ -266,7 +283,7 @@ vec3 Cross(const vec3 &v1, const vec3 &v2)
 
 typedef vec<4> vec4;
 
-vec4 Cross(const vec4 &v1, const vec4 &v2)
+inline vec4 Cross(const vec4 &v1, const vec4 &v2)
 {
     return {v1.y * v2.z - v1.z * v2.y + v1.x * v2.w + v1.w * v2.x,
             v1.z * v2.x - v1.x * v2.z + v1.y * v2.w + v1.w * v2.y,

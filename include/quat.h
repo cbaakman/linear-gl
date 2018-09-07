@@ -22,17 +22,17 @@
 
 typedef vec4 quaternion;
 
-quaternion Conjugate(const quaternion &q)
+inline quaternion Conjugate(const quaternion &q)
 {
     return {-q.x, -q.y, -q.z, q.w};
 }
 
-quaternion Inverse(const quaternion &q)
+inline quaternion Inverse(const quaternion &q)
 {
     return Conjugate(q) / Length2(q);
 }
 
-quaternion Rotation(const vec3 &from, const vec3 &to)
+inline quaternion Rotation(const vec3 &from, const vec3 &to)
 {
     GLfloat dot = Dot(Unit(from), Unit(to)),
             a, w;
@@ -66,7 +66,7 @@ quaternion Rotation(const vec3 &from, const vec3 &to)
     return {axis.x, axis.y, axis.z, w};
 }
 
-quaternion Slerp(const quaternion &start, const quaternion &end, GLfloat s)
+inline quaternion Slerp(const quaternion &start, const quaternion &end, GLfloat s)
 {
     quaternion startU = Unit(start),
                endU = Unit(end);
@@ -99,12 +99,12 @@ quaternion Slerp(const quaternion &start, const quaternion &end, GLfloat s)
     return startU * w1 + endU * w2;
 }
 
-vec4 Rotate(const quaternion &rotation, const vec4 &v)
+inline vec4 Rotate(const quaternion &rotation, const vec4 &v)
 {
     return Cross(Cross(rotation, v), Inverse(rotation));
 }
 
-vec3 Rotate(const quaternion &rotation, const vec3 &v)
+inline vec3 Rotate(const quaternion &rotation, const vec3 &v)
 {
     return Rotate(rotation, vec4(v, 0.0f)).xyz();
 }

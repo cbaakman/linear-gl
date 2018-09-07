@@ -34,12 +34,12 @@ struct plane3
 };
 
 
-GLfloat Distance(const vec3 &point, const plane3 &plane)
+inline GLfloat Distance(const vec3 &point, const plane3 &plane)
 {
     return Dot(plane.n, point) + plane.d;
 }
 
-vec3 Projection(const vec3 &point, const plane3 &plane)
+inline vec3 Projection(const vec3 &point, const plane3 &plane)
 {
     return point - Distance(point, plane) * plane.n;
 }

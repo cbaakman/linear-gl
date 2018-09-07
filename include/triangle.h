@@ -22,7 +22,7 @@
 typedef vec3 triangle3[3];
 
 
-bool SameSide(const vec3 &linePoint1, const vec3 &linePoint2,
+inline bool SameSide(const vec3 &linePoint1, const vec3 &linePoint2,
               const vec3 &pointA, const vec3 &pointB)
 {
     vec3 cp1 = Cross(pointB - pointA, linePoint1 - pointA),
@@ -33,7 +33,7 @@ bool SameSide(const vec3 &linePoint1, const vec3 &linePoint2,
 }
 
 
-bool PointInsideTriangle(const triangle3 &triangle, const vec3 &point)
+inline bool PointInsideTriangle(const triangle3 &triangle, const vec3 &point)
 {
     return (SameSide(point, triangle[0], triangle[1], triangle[2]) &&
             SameSide(point, triangle[1], triangle[0], triangle[2]) &&

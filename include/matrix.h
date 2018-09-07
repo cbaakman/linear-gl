@@ -37,7 +37,7 @@ struct matrix4
     }
 };
 
-bool operator==(const matrix4 &m1, const matrix4 &m2)
+inline bool operator==(const matrix4 &m1, const matrix4 &m2)
 {
     size_t i, j;
     for (i = 0; i < 4; i++)
@@ -48,7 +48,7 @@ bool operator==(const matrix4 &m1, const matrix4 &m2)
     return true;
 }
 
-bool operator!=(const matrix4 &m1, const matrix4 &m2)
+inline bool operator!=(const matrix4 &m1, const matrix4 &m2)
 {
     size_t i, j;
     for (i = 0; i < 4; i++)
@@ -59,7 +59,7 @@ bool operator!=(const matrix4 &m1, const matrix4 &m2)
     return false;
 }
 
-std::ostream &operator<<(std::ostream &os, const matrix4 &m)
+inline std::ostream &operator<<(std::ostream &os, const matrix4 &m)
 {
     size_t i, j;
     for (i = 0; i < 4; i++)
@@ -80,7 +80,7 @@ std::ostream &operator<<(std::ostream &os, const matrix4 &m)
     return os;
 }
 
-GLfloat Determinant(const matrix4 &m)
+inline GLfloat Determinant(const matrix4 &m)
 {
     GLfloat fA0 = m[0][0] * m[1][1] - m[0][1] * m[1][0],
             fA1 = m[0][0] * m[1][2] - m[0][2] * m[1][0],
@@ -99,7 +99,7 @@ GLfloat Determinant(const matrix4 &m)
             fA3 * fB2 - fA4 * fB1 + fA5 * fB0);
 }
 
-matrix4 MatInverse(const matrix4 &m)
+inline matrix4 MatInverse(const matrix4 &m)
 {
     GLfloat fA0 = m[0][0] * m[1][1] - m[0][1] * m[1][0],
             fA1 = m[0][0] * m[1][2] - m[0][2] * m[1][0],
@@ -156,7 +156,7 @@ matrix4 MatInverse(const matrix4 &m)
     return inv;
 }
 
-matrix4 MatTranspose(const matrix4 &m)
+inline matrix4 MatTranspose(const matrix4 &m)
 {
     matrix4 t;
     size_t i, j;
@@ -166,7 +166,7 @@ matrix4 MatTranspose(const matrix4 &m)
     return t;
 }
 
-matrix4 MatID(void)
+inline matrix4 MatID(void)
 {
     matrix4 r;
     size_t i, j;
@@ -178,7 +178,7 @@ matrix4 MatID(void)
     return r;
 }
 
-matrix4 MatTranslate(const vec3 &t)
+inline matrix4 MatTranslate(const vec3 &t)
 {
     matrix4 m = MatID();
     size_t i;
@@ -188,7 +188,7 @@ matrix4 MatTranslate(const vec3 &t)
     return m;
 }
 
-matrix4 MatRotAxis(const vec3& axis, float angle)  // radians
+inline matrix4 MatRotAxis(const vec3& axis, float angle)  // radians
 {
     matrix4 m;
     vec3 a = Unit(axis);
@@ -210,7 +210,7 @@ matrix4 MatRotAxis(const vec3& axis, float angle)  // radians
     return m;
 }
 
-matrix4 MatQuat(const quaternion &q)  // also a rotation matrix
+inline matrix4 MatQuat(const quaternion &q)  // also a rotation matrix
 {
     GLfloat f = 2.0f / Length2(q);
 
@@ -227,7 +227,7 @@ matrix4 MatQuat(const quaternion &q)  // also a rotation matrix
     return m;
 }
 
-matrix4 MatScale(const float sx, const float sy, const float sz)
+inline matrix4 MatScale(const float sx, const float sy, const float sz)
 {
     matrix4 m = MatID();
 
@@ -238,7 +238,7 @@ matrix4 MatScale(const float sx, const float sy, const float sz)
     return m;
 }
 
-matrix4 operator*(const matrix4 &m1, const matrix4 &m2)
+inline matrix4 operator*(const matrix4 &m1, const matrix4 &m2)
 {
     matrix4 r;
     size_t i, j, k;
@@ -254,7 +254,7 @@ matrix4 operator*(const matrix4 &m1, const matrix4 &m2)
     return r;
 }
 
-vec4 operator*(const matrix4 &m, const vec4 &v)
+inline vec4 operator*(const matrix4 &m, const vec4 &v)
 {
     vec4 r = {0.0f, 0.0f, 0.0f, 0.0f};
     size_t i, j;
@@ -268,17 +268,17 @@ vec4 operator*(const matrix4 &m, const vec4 &v)
     return r;
 }
 
-vec3 operator*(const matrix4 &m, vec3 &v)
+inline vec3 operator*(const matrix4 &m, vec3 &v)
 {
     return (m * vec4(v, 1.0f)).xyz();
 }
 
-GLfloat *operator&(matrix4 &m)
+inline GLfloat *operator&(matrix4 &m)
 {
     return (GLfloat *)&m.m;
 }
 
-const GLfloat *operator&(const matrix4 &m)
+inline const GLfloat *operator&(const matrix4 &m)
 {
     return (const GLfloat *)&m.m;
 }
