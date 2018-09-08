@@ -14,14 +14,25 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
-
-#include "vec.h"
+#include "plane.h"
 
 
-typedef vec3 triangle3[3];
+plane3::plane3(void)
+{
+}
 
-bool PointInsideTriangle(const triangle3 &, const vec3 &point);
+plane3::plane3(const triangle3 &triangle)
+{
+    n = Unit(Cross(triangle[1] - triangle[0], triangle[2] - triangle[0]));
+    d = -Dot(triangle[0], n);
+}
 
-#endif  // TRIANGLE_H
+GLfloat Distance(const vec3 &point, const plane3 &plane)
+{
+    return Dot(plane.n, point) + plane.d;
+}
+
+vec3 Projection(const vec3 &point, const plane3 &plane)
+{
+    return point - Distance(point, plane) * plane.n;
+}

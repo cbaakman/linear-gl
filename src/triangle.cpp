@@ -14,14 +14,23 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
-
-#include "vec.h"
+#include "triangle.h"
 
 
-typedef vec3 triangle3[3];
+bool _SameSide(const vec3 &linePoint1, const vec3 &linePoint2,
+              const vec3 &pointA, const vec3 &pointB)
+{
+    vec3 cp1 = Cross(pointB - pointA, linePoint1 - pointA),
+         cp2 = Cross(pointB - pointA, linePoint2 - pointA);
 
-bool PointInsideTriangle(const triangle3 &, const vec3 &point);
+    // make it -0.00001f instead of 0.0f to cover up the error in floating point
+    return (Dot (cp1, cp2) >= -0.00001f);
+}
 
-#endif  // TRIANGLE_H
+
+bool PointInsideTriangle(const triangle3 &triangle, const vec3 &point)
+{
+    return (_SameSide(point, triangle[0], triangle[1], triangle[2]) &&
+            _SameSide(point, triangle[1], triangle[0], triangle[2]) &&
+            _SameSide(point, triangle[2], triangle[0], triangle[1]));
+}

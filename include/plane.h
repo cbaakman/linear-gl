@@ -19,30 +19,20 @@
 
 #include "triangle.h"
 
+
 struct plane3
 {
-    vec3 n;
+    vec3 n;  // must be length 1.0
     GLfloat d;
 
-    plane3(void) {}
-
-    plane3(const triangle3 &triangle)
-    {
-        n = Unit(Cross(triangle[1] - triangle[0], triangle[2] - triangle[0]));
-        d = -Dot(triangle[0], n);
-    }
+    plane3(void);
+    plane3(const triangle3 &);
 };
 
 
-inline GLfloat Distance(const vec3 &point, const plane3 &plane)
-{
-    return Dot(plane.n, point) + plane.d;
-}
+GLfloat Distance(const vec3 &point, const plane3 &);
 
-inline vec3 Projection(const vec3 &point, const plane3 &plane)
-{
-    return point - Distance(point, plane) * plane.n;
-}
+vec3 Projection(const vec3 &point, const plane3 &);
 
 
 #endif  // PLANE_H

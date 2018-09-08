@@ -1,25 +1,25 @@
 # Linear GL
 Some C++ classes and functions to do linear algebra, as used in OpenGL.
 
+## Contents
+* an include dir with headers
+* a src dir with implementation
+* a test dir with boost unit tests to verify the math
+
+## Building
+Requires GNU C++ compiler 4.7 or higher.
+
+On windows, run build.cmd.
+
+On Unix, run the Makefile
+
+### Testing
+
+To run the tests also, boost 1.68 has to be installed in shared library form.
+(https://www.boost.org/users/download/)
+
 ## Installing
-Simply include the headers from the include directory in your project.
 
-## Testing
-### Requirements
-Requires a C++ compiler.
+On Unix you can run make install.
 
-Requires boost 1.68 installed in shared library form. (https://www.boost.org/users/download/)
-The C++ compiler needs to know where to find boost.
-
-### Running the tests
-
-On windows, run test.cmd
-
-On unix-like systems, run the Makefile
-
-### Description of the tests
-
-The compile test is to make sure that the headers can be imported into two
-different modules without problems.
-
-The vec, mat and quat tests make sure that the code is mathematically correct.
+ON windows you can add the headers, dll-file and the import library to your build path.

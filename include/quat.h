@@ -22,91 +22,16 @@
 
 typedef vec4 quaternion;
 
-inline quaternion Conjugate(const quaternion &q)
-{
-    return {-q.x, -q.y, -q.z, q.w};
-}
+quaternion Conjugate(const quaternion &);
 
-inline quaternion Inverse(const quaternion &q)
-{
-    return Conjugate(q) / Length2(q);
-}
+quaternion Inverse(const quaternion &);
 
-inline quaternion Rotation(const vec3 &from, const vec3 &to)
-{
-    GLfloat dot = Dot(Unit(from), Unit(to)),
-            a, w;
-    vec3 axis;
+quaternion Rotation(const vec3 &from, const vec3 &to);
 
-    if (dot < -0.99999999)
-    {
-        /*
-            We can't calculate the axis if the vectors are in opposite directions.
-            So take an arbitrary orthogonal axis.
-            If the vectors are parallel, we won't need the axis.
-         */
+quaternion Slerp(const quaternion &start, const quaternion &end, GLfloat s);
 
-        if (std::abs(to.x) > std::abs(to.z))
+vec4 Rotate(const quaternion &rotation, const vec4 &);
 
-            axis = vec3(-to.y, -to.x, 0.0f);
-        else
-            axis = vec3(0.0f, to.z, to.y);
-
-        axis = Unit(axis);
-        w = 0.0f;
-    }
-    else
-    {
-        a = acos(dot) / 2;
-        w = cos(a);
-
-        axis = sin(a) * Unit(Cross(from, to));
-    }
-
-    return {axis.x, axis.y, axis.z, w};
-}
-
-inline quaternion Slerp(const quaternion &start, const quaternion &end, GLfloat s)
-{
-    quaternion startU = Unit(start),
-               endU = Unit(end);
-
-    GLfloat w1, w2, theta, sTheta,
-
-            dot = Dot(startU, endU);
-
-    if (dot < 0.0f)
-    {
-        // assure shortest path (<= 180 degrees)
-        startU = -startU;
-        dot = Dot(startU, endU);
-    }
-
-    if (dot > 0.9995)  // too similar
-    {
-        w1 = 1.0f - s;
-        w2 = s;
-    }
-    else
-    {
-        theta = acos(dot),
-        sTheta = sin(theta);
-
-        w1 = sin((1.0f - s) * theta) / sTheta;
-        w2 = sin(s * theta) / sTheta;
-    }
-
-    return startU * w1 + endU * w2;
-}
-
-inline vec4 Rotate(const quaternion &rotation, const vec4 &v)
-{
-    return Cross(Cross(rotation, v), Inverse(rotation));
-}
-
-inline vec3 Rotate(const quaternion &rotation, const vec3 &v)
-{
-    return Rotate(rotation, vec4(v, 0.0f)).xyz();
-}
+vec3 Rotate(const quaternion &rotation, const vec3 &);
 
 #endif  // QUAT_H

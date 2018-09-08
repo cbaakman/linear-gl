@@ -1,3 +1,5 @@
+#include <math.h>
+
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MODULE TestMatrix
 #include <boost/test/unit_test.hpp>
