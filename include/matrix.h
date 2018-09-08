@@ -68,7 +68,7 @@ matrix4 MatQuat(const quaternion &q);  // also a rotation matrix
 matrix4 MatScale(const GLfloat s);
 matrix4 MatScale(const GLfloat sx, const GLfloat sy, const GLfloat sz);
 
-matrix4 MatSkew(const plane3 &);
+matrix4 MatReflect(const plane3 &);
 
 template <size_t N>
 matrix<N> operator*(const matrix<N> &, const matrix<N> &);

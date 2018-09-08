@@ -5,13 +5,13 @@
 #include "matrix.h"
 
 
-BOOST_AUTO_TEST_CASE(skew_test)
+BOOST_AUTO_TEST_CASE(reflection_test)
 {
     // Horizontal plane at y = 0.5.
     plane3 plane;
     plane.n = {0.0f, 1.0f, 0.0f};
     plane.d = -0.5f;
-    matrix4 ms = MatSkew(plane);
+    matrix4 ms = MatReflect(plane);
 
     vec3 p = {1.0f, 1.0f, 1.0f},
          r = ms * p,

@@ -267,7 +267,7 @@ matrix4 MatQuat(const quaternion &q)
 /**
  * source: https://en.wikipedia.org/wiki/Transformation_matrix#Reflection_2
  */
-matrix4 MatSkew(const plane3 &plane)
+matrix4 MatReflect(const plane3 &plane)
 {
     matrix4 o;
 
