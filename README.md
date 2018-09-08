@@ -22,4 +22,4 @@ To run the tests also, boost 1.68 has to be installed in shared library form.
 
 On Unix you can run make install.
 
-ON windows you can add the headers, dll-file and the import library to your build path.
+On windows you can add the headers, dll-file and the import library to your build path.
