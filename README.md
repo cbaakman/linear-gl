@@ -1,4 +1,4 @@
-# Linear GL
+# Linear GL, version 1.0.0
 Some C++ classes and functions to do linear algebra, as used in OpenGL.
 
 ## Contents

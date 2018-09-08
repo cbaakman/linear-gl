@@ -3,6 +3,7 @@
 set CXX=g++
 set CFLAGS=-std=c++17
 set LIB_NAME=linear-gl
+set VERSION=1.0.0
 
 
 if not exist obj (mkdir obj)
@@ -20,7 +21,7 @@ for %%m in (vec quat matrix plane triangle) do (
     )
 )
 
-%CXX% obj\vec.o obj\quat.o obj\matrix.o obj\plane.o obj\triangle.o -o bin\%LIB_NAME%.dll -shared -fPIC -Wl,--out-implib,lib\lib%LIB_NAME%.a
+%CXX% obj\vec.o obj\quat.o obj\matrix.o obj\plane.o obj\triangle.o -o bin\%LIB_NAME%-%VERSION%.dll -shared -fPIC -Wl,--out-implib,lib\lib%LIB_NAME%.a
 if %ERRORLEVEL% neq 0 (
     exit /B %ERRORLEVEL%
 )
