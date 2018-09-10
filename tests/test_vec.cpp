@@ -5,6 +5,8 @@
 #include "vec.h"
 
 
+using namespace LinearGL;
+
 BOOST_AUTO_TEST_CASE(add_on_test)
 {
     vec3 v1 = {1.0f, -1.0f, 0.5f},

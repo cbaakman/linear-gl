@@ -6,6 +6,9 @@
 
 #include "quat.h"
 
+
+using namespace LinearGL;
+
 BOOST_AUTO_TEST_CASE(test_slerp)
 {
     vec3 v = {1.0f, 0.0f, 0.0f};

@@ -19,89 +19,92 @@
 #include "quat.h"
 
 
-quaternion Conjugate(const quaternion &q)
+namespace LinearGL
 {
-    return {-q.x, -q.y, -q.z, q.w};
-}
-
-quaternion Inverse(const quaternion &q)
-{
-    return Conjugate(q) / Length2(q);
-}
-
-quaternion Rotation(const vec3 &from, const vec3 &to)
-{
-    GLfloat dot = Dot(Unit(from), Unit(to)),
-            a, w;
-    vec3 axis;
-
-    if (dot < -0.99999999)
+    quaternion Conjugate(const quaternion &q)
     {
-        /*
-            We can't calculate the axis if the vectors are in opposite directions.
-            So take an arbitrary orthogonal axis.
-            If the vectors are parallel, we won't need the axis.
-         */
+        return {-q.x, -q.y, -q.z, q.w};
+    }
 
-        if (std::abs(to.x) > std::abs(to.z))
+    quaternion Inverse(const quaternion &q)
+    {
+        return Conjugate(q) / Length2(q);
+    }
 
-            axis = vec3(-to.y, -to.x, 0.0f);
+    quaternion Rotation(const vec3 &from, const vec3 &to)
+    {
+        GLfloat dot = Dot(Unit(from), Unit(to)),
+                a, w;
+        vec3 axis;
+
+        if (dot < -0.99999999)
+        {
+            /*
+                We can't calculate the axis if the vectors are in opposite directions.
+                So take an arbitrary orthogonal axis.
+                If the vectors are parallel, we won't need the axis.
+             */
+
+            if (std::abs(to.x) > std::abs(to.z))
+
+                axis = vec3(-to.y, -to.x, 0.0f);
+            else
+                axis = vec3(0.0f, to.z, to.y);
+
+            axis = Unit(axis);
+            w = 0.0f;
+        }
         else
-            axis = vec3(0.0f, to.z, to.y);
+        {
+            a = acos(dot) / 2;
+            w = cos(a);
 
-        axis = Unit(axis);
-        w = 0.0f;
+            axis = sin(a) * Unit(Cross(from, to));
+        }
+
+        return {axis.x, axis.y, axis.z, w};
     }
-    else
+
+    quaternion Slerp(const quaternion &start, const quaternion &end, GLfloat s)
     {
-        a = acos(dot) / 2;
-        w = cos(a);
+        quaternion startU = Unit(start),
+                   endU = Unit(end);
 
-        axis = sin(a) * Unit(Cross(from, to));
-    }
+        GLfloat w1, w2, theta, sTheta,
 
-    return {axis.x, axis.y, axis.z, w};
-}
+                dot = Dot(startU, endU);
 
-quaternion Slerp(const quaternion &start, const quaternion &end, GLfloat s)
-{
-    quaternion startU = Unit(start),
-               endU = Unit(end);
-
-    GLfloat w1, w2, theta, sTheta,
-
+        if (dot < 0.0f)
+        {
+            // assure shortest path (<= 180 degrees)
+            startU = -startU;
             dot = Dot(startU, endU);
+        }
 
-    if (dot < 0.0f)
-    {
-        // assure shortest path (<= 180 degrees)
-        startU = -startU;
-        dot = Dot(startU, endU);
+        if (dot > 0.9995)  // too similar
+        {
+            w1 = 1.0f - s;
+            w2 = s;
+        }
+        else
+        {
+            theta = acos(dot),
+            sTheta = sin(theta);
+
+            w1 = sin((1.0f - s) * theta) / sTheta;
+            w2 = sin(s * theta) / sTheta;
+        }
+
+        return startU * w1 + endU * w2;
     }
 
-    if (dot > 0.9995)  // too similar
+    vec4 Rotate(const quaternion &rotation, const vec4 &v)
     {
-        w1 = 1.0f - s;
-        w2 = s;
-    }
-    else
-    {
-        theta = acos(dot),
-        sTheta = sin(theta);
-
-        w1 = sin((1.0f - s) * theta) / sTheta;
-        w2 = sin(s * theta) / sTheta;
+        return Cross(Cross(rotation, v), Inverse(rotation));
     }
 
-    return startU * w1 + endU * w2;
-}
-
-vec4 Rotate(const quaternion &rotation, const vec4 &v)
-{
-    return Cross(Cross(rotation, v), Inverse(rotation));
-}
-
-vec3 Rotate(const quaternion &rotation, const vec3 &v)
-{
-    return Rotate(rotation, vec4(v, 0.0f)).xyz();
+    vec3 Rotate(const quaternion &rotation, const vec3 &v)
+    {
+        return Rotate(rotation, vec4(v, 0.0f)).xyz();
+    }
 }

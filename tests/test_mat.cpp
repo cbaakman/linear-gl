@@ -5,6 +5,8 @@
 #include "matrix.h"
 
 
+using namespace LinearGL;
+
 BOOST_AUTO_TEST_CASE(reflection_test)
 {
     // Horizontal plane at y = 0.5.

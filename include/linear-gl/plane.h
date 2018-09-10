@@ -14,14 +14,27 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
+#ifndef PLANE_H
+#define PLANE_H
 
-#include "vec.h"
+#include "triangle.h"
 
 
-typedef vec3 triangle3[3];
+namespace LinearGL
+{
+    struct plane3
+    {
+        vec3 n;  // must be length 1.0
+        GLfloat d;
 
-bool PointInsideTriangle(const triangle3 &, const vec3 &point);
+        plane3(void);
+        plane3(const triangle3 &);
+    };
 
-#endif  // TRIANGLE_H
+
+    GLfloat Distance(const vec3 &point, const plane3 &);
+
+    vec3 Projection(const vec3 &point, const plane3 &);
+}
+
+#endif  // PLANE_H

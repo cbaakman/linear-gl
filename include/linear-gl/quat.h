@@ -19,19 +19,21 @@
 
 #include "vec.h"
 
+namespace LinearGL
+{
+    typedef vec4 quaternion;
 
-typedef vec4 quaternion;
+    quaternion Conjugate(const quaternion &);
 
-quaternion Conjugate(const quaternion &);
+    quaternion Inverse(const quaternion &);
 
-quaternion Inverse(const quaternion &);
+    quaternion Rotation(const vec3 &from, const vec3 &to);
 
-quaternion Rotation(const vec3 &from, const vec3 &to);
+    quaternion Slerp(const quaternion &start, const quaternion &end, GLfloat s);
 
-quaternion Slerp(const quaternion &start, const quaternion &end, GLfloat s);
+    vec4 Rotate(const quaternion &rotation, const vec4 &);
 
-vec4 Rotate(const quaternion &rotation, const vec4 &);
-
-vec3 Rotate(const quaternion &rotation, const vec3 &);
+    vec3 Rotate(const quaternion &rotation, const vec3 &);
+}
 
 #endif  // QUAT_H
