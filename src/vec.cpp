@@ -26,29 +26,29 @@ namespace LinearGL
 
     GLfloat &vec<2>::operator[](const size_t i)
     {
-        return v[i];
+        return coords[i];
     }
     GLfloat &vec<3>::operator[](const size_t i)
     {
-        return v[i];
+        return coords[i];
     }
     GLfloat &vec<4>::operator[](const size_t i)
     {
-        return v[i];
+        return coords[i];
     }
 
 
     const GLfloat &vec<2>::operator[](const size_t i) const
     {
-        return v[i];
+        return coords[i];
     }
     const GLfloat &vec<3>::operator[](const size_t i) const
     {
-        return v[i];
+        return coords[i];
     }
     const GLfloat &vec<4>::operator[](const size_t i) const
     {
-        return v[i];
+        return coords[i];
     }
 
 

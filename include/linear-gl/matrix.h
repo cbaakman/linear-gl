@@ -33,7 +33,7 @@ namespace LinearGL
         static_assert(N == 2 || N == 3 || N == 4,
                       "Only matrices with N = 2,3,4 are supported");
 
-        GLfloat m[N][N];
+        GLfloat elements[N][N];
 
         GLfloat *operator[] (const size_t column);
         const GLfloat *operator[] (const size_t column) const;

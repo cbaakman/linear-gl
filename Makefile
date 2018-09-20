@@ -1,7 +1,7 @@
 CXX = /usr/bin/g++
 CFLAGS = -std=c++17
 LIB_NAME = linear-gl
-VERSION = 1.1.0
+VERSION = 1.1.1
 
 TESTS = vec quat mat
 

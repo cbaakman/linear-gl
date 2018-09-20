@@ -40,8 +40,9 @@ namespace LinearGL
     {
         union
         {
-            GLfloat v[2];
+            GLfloat coords[2];
             struct { GLfloat x, y; };
+            struct { GLfloat u, v; };
         };
 
         GLfloat &operator[](const size_t i);
@@ -59,7 +60,7 @@ namespace LinearGL
     {
         union
         {
-            GLfloat v[3];
+            GLfloat coords[3];
             struct { GLfloat x, y, z; };
         };
 
@@ -81,7 +82,7 @@ namespace LinearGL
     {
         union
         {
-            GLfloat v[4];
+            GLfloat coords[4];
             struct { GLfloat x, y, z, w; };
         };
 

@@ -24,13 +24,13 @@ namespace LinearGL
     template <size_t N>
     GLfloat *matrix<N>::operator[] (const size_t column)
     {
-        return m[column];
+        return elements[column];
     }
 
     template <size_t N>
     const GLfloat *matrix<N>::operator[] (const size_t column) const
     {
-        return m[column];
+        return elements[column];
     }
 
     template struct matrix<2>;
@@ -416,7 +416,7 @@ namespace LinearGL
         for (i = 0; i < 4; i++)
         {
             for (j = 0; j < 4; j++)
-                r.v[i] += m[j][i] * v.v[j];
+                r[i] += m[j][i] * v[j];
         }
 
         return r;
@@ -429,11 +429,11 @@ namespace LinearGL
 
     GLfloat *operator&(matrix4 &m)
     {
-        return (GLfloat *)&m.m;
+        return (GLfloat *)&(m.elements);
     }
 
     const GLfloat *operator&(const matrix4 &m)
     {
-        return (const GLfloat *)&m.m;
+        return (const GLfloat *)&(m.elements);
     }
 }
