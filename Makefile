@@ -1,18 +1,20 @@
 CXX = /usr/bin/g++
 CFLAGS = -std=c++17
 LIB_NAME = linear-gl
-VERSION = 1.1.1
+VERSION = 1.1.2
 
-TESTS = vec quat mat
+TESTS = vec quat mat triangle
 
 
-all: $(TESTS:%=bin/test_%)
-	export LD_LIBRARY_PATH=lib; $(foreach x,$^,$(x);)
+all: lib/lib$(LIB_NAME).so.$(VERSION)
 
 clean:
 	rm -f bin/* obj/*.o lib/*
 
-lib/lib$(LIB_NAME).so.$(VERSION): obj/vec.o obj/quat.o obj/matrix.o obj/triangle.o obj/plane.o
+test: $(TESTS:%=bin/test_%)
+	export LD_LIBRARY_PATH=lib; $(foreach x,$^,$(x);)
+
+lib/lib$(LIB_NAME).so.$(VERSION): obj/vec.o obj/quat.o obj/matrix.o obj/triangle.o obj/plane.o include/linear-gl/*
 	mkdir -p lib
 	$(CXX) $^ -o $@ -shared -fPIC
 
@@ -34,3 +36,6 @@ install:
 	install -m644 lib/lib$(LIB_NAME).so.$(VERSION) /usr/local/lib/lib$(LIB_NAME).so.$(VERSION)
 	ln -sf /usr/local/lib/lib$(LIB_NAME).so.$(VERSION) /usr/local/lib/lib$(LIB_NAME).so
 	install -D include/linear-gl/*.h /usr/local/include/linear-gl/
+
+uninstall:
+	rm -f /usr/local/lib/lib$(LIB_NAME).so* /usr/local/include/linear-gl/*.h
