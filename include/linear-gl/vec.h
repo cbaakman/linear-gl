@@ -156,6 +156,15 @@ namespace LinearGL
     vec3 Cross(const vec3 &v1, const vec3 &v2);
 
     vec4 Cross(const vec4 &v1, const vec4 &v2);
+
+    /**
+     * Projects vector 'v' on vector 'o'.
+     */
+    template <size_t N>
+    vec<N> Projection(const vec<N> &v, const vec<N> &o);
+
+    extern const vec3 VEC3_ZERO;
+    extern const vec2 VEC2_ZERO;
 }
 
 #endif  // VEC_H

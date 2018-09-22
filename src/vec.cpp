@@ -379,4 +379,18 @@ namespace LinearGL
                 v1.x * v2.y - v1.y * v2.x + v1.z * v2.w + v1.w * v2.z,
                 v1.w * v2.w - v1.x * v2.x - v1.y * v2.y - v1.z * v2.z};
     }
+
+    template <size_t N>
+    vec<N> Projection(const vec<N> &v, const vec<N> &o)
+    {
+        return Dot(v, o) * Unit(o);
+    }
+
+    template vec<2> Projection(const vec<2> &, const vec<2> &);
+    template vec<3> Projection(const vec<3> &, const vec<3> &);
+    template vec<4> Projection(const vec<4> &, const vec<4> &);
+
+
+    const vec3 VEC3_ZERO = {0.0f, 0.0f, 0.0f};
+    const vec2 VEC2_ZERO = {0.0f, 0.0f};
 }

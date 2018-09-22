@@ -51,3 +51,21 @@ BOOST_AUTO_TEST_CASE(cross_test)
     BOOST_CHECK(axb.y > 0.0f);
     BOOST_CHECK(bxa.y < 0.0f);
 }
+
+BOOST_AUTO_TEST_CASE(zero_test)
+{
+    vec3 a = {1.0f, 0.5f, 2.0f},
+         r = a + VEC3_ZERO;
+
+    BOOST_CHECK_EQUAL(a, r);
+}
+
+BOOST_AUTO_TEST_CASE(projection_test)
+{
+    vec3 v = {1.0f, 1.0f, 1.0f},
+         o = {0.5f, 0.5f, 0.5f},
+         projection = Projection(v, o);
+
+    // Test they have the same direction.
+    BOOST_CHECK_EQUAL(Unit(projection), Unit(o));
+}
