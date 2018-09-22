@@ -25,6 +25,9 @@ namespace LinearGL
     typedef vec3 triangle3[3];
 
     bool PointInsideTriangle(const triangle3 &, const vec3 &point);
+    bool PointInsideTriangle(const vec3 &trianglePoint0,
+                             const vec3 &trianglePoint1,
+                             const vec3 &trianglePoint2, const vec3 &point);
 }
 
 #endif  // TRIANGLE_H

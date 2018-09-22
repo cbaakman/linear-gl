@@ -29,6 +29,9 @@ namespace LinearGL
 
         plane3(void);
         plane3(const triangle3 &);
+        plane3(const vec3 &trianglePoint0,
+               const vec3 &trianglePoint1,
+               const vec3 &trianglePoint2);
     };
 
 

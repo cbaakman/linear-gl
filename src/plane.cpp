@@ -23,10 +23,14 @@ namespace LinearGL
     {
     }
 
-    plane3::plane3(const triangle3 &triangle)
+    plane3::plane3(const vec3 &p0, const vec3 &p1, const vec3 &p2)
     {
-        n = Unit(Cross(triangle[1] - triangle[0], triangle[2] - triangle[0]));
-        d = -Dot(triangle[0], n);
+        n = Unit(Cross(p1 - p0, p2 - p1));
+        d = -Dot(p0, n);
+    }
+
+    plane3::plane3(const triangle3 &triangle): plane3(triangle[0], triangle[1], triangle[2])
+    {
     }
 
     GLfloat Distance(const vec3 &point, const plane3 &plane)

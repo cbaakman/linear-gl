@@ -19,7 +19,7 @@
 
 namespace LinearGL
 {
-    bool _SameSide(const vec3 &linePoint1, const vec3 &linePoint2,
+    bool SameSide(const vec3 &linePoint1, const vec3 &linePoint2,
                   const vec3 &pointA, const vec3 &pointB)
     {
         vec3 cp1 = Cross(pointB - pointA, linePoint1 - pointA),
@@ -32,8 +32,16 @@ namespace LinearGL
 
     bool PointInsideTriangle(const triangle3 &triangle, const vec3 &point)
     {
-        return (_SameSide(point, triangle[0], triangle[1], triangle[2]) &&
-                _SameSide(point, triangle[1], triangle[0], triangle[2]) &&
-                _SameSide(point, triangle[2], triangle[0], triangle[1]));
+        return PointInsideTriangle(triangle[0], triangle[1], triangle[2], point);
+    }
+
+
+    bool PointInsideTriangle(const vec3 &p0,
+                             const vec3 &p1,
+                             const vec3 &p2, const vec3 &point)
+    {
+        return (SameSide(point, p0, p1, p2) &&
+                SameSide(point, p1, p0, p2) &&
+                SameSide(point, p2, p0, p1));
     }
 }
