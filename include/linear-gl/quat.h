@@ -17,6 +17,8 @@
 #ifndef QUAT_H
 #define QUAT_H
 
+#include <tuple>
+
 #include "vec.h"
 
 namespace LinearGL
@@ -34,6 +36,11 @@ namespace LinearGL
     vec4 Rotate(const quaternion &rotation, const vec4 &);
 
     vec3 Rotate(const quaternion &rotation, const vec3 &);
+
+    quaternion FromAxisAngle(const vec3 &axis, const GLfloat angle);
+    std::tuple<vec3, GLfloat> ToAxisAngle(const quaternion &q);
+
+    extern const quaternion QUATERNION_ID;  // identity quaternion
 }
 
 #endif  // QUAT_H

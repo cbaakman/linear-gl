@@ -51,3 +51,26 @@ BOOST_AUTO_TEST_CASE(test_get_rotation)
 
     BOOST_CHECK_EQUAL(r, e);
 }
+
+BOOST_AUTO_TEST_CASE(test_identity)
+{
+    vec3 a = {1.0f, 0.5f, 2.0f},
+         r = Rotate(QUATERNION_ID, a);
+
+    BOOST_CHECK_EQUAL(a, r);
+}
+
+BOOST_AUTO_TEST_CASE(test_convert)
+{
+    vec3 axis = {1.0f, 1.0f, 1.0f};
+    GLfloat angle = PI;
+
+    quaternion q = FromAxisAngle(axis, angle);
+
+    vec3 r;
+    GLfloat a;
+    std::tie(r, a) = ToAxisAngle(q);
+
+    BOOST_CHECK_EQUAL(Unit(axis), Unit(r));
+    BOOST_CHECK_EQUAL(a, angle);
+}

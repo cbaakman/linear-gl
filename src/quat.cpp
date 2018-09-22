@@ -107,4 +107,25 @@ namespace LinearGL
     {
         return Rotate(rotation, vec4(v, 0.0f)).xyz();
     }
+
+    quaternion FromAxisAngle(const vec3 &axis, const GLfloat angle)
+    {
+        vec3 a = Unit(axis);
+
+        return {a.x * sin(angle / 2),
+                a.y * sin(angle / 2),
+                a.z * sin(angle / 2),
+                cos(angle / 2)};
+    }
+
+    std::tuple<vec3, GLfloat> ToAxisAngle(const quaternion &q)
+    {
+        GLfloat angle = 2 * acos(q.w);
+        vec3 axis = {q.x, q.y, q.z};
+        axis = Unit(axis);
+
+        return std::make_tuple(axis, angle);
+    }
+
+    const quaternion QUATERNION_ID = {0.0f, 0.0f, 0.0f, 1.0f};
 }
