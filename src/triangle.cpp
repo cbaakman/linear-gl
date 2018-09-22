@@ -26,7 +26,7 @@ namespace LinearGL
              cp2 = Cross(pointB - pointA, linePoint2 - pointA);
 
         // make it -0.00001f instead of 0.0f to cover up the error in floating point
-        return (Dot (cp1, cp2) >= -0.00001f);
+        return (Dot(cp1, cp2) >= -0.00001f);
     }
 
 
