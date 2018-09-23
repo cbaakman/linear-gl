@@ -1,7 +1,7 @@
 set CXX=g++
 set CFLAGS=-std=c++17
 set LIB_NAME=linear-gl
-set VERSION=1.1.2
+set VERSION=1.1.3
 
 
 if not exist obj (mkdir obj)
@@ -27,7 +27,7 @@ del /Q /F /S obj\* bin\%LIB_NAME%-%VERSION%.dll lib\lib%LIB_NAME%.a
 
 :: Testing
 
-@for %%t in (vec quat mat triangle) do (
+@for %%t in (vec quat mat triangle plane) do (
     %CXX% %CFLAGS% -I include\linear-gl -L lib tests\test_%%t.cpp -lboost_unit_test_framework -l%LIB_NAME% -o bin\test_%%t.exe && bin\test_%%t.exe
     @if %ERRORLEVEL% neq 0 (
         echo %%t failed with exit code %=ExitCode%

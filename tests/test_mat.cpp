@@ -10,13 +10,12 @@ using namespace LinearGL;
 BOOST_AUTO_TEST_CASE(reflection_test)
 {
     // Horizontal plane at y = 0.5.
-    plane3 plane;
-    plane.n = {0.0f, 1.0f, 0.0f};
-    plane.d = -0.5f;
-    matrix4 ms = MatReflect(plane);
+    plane3 plane = {0.0f, 1.0f, 0.0f, -0.5f};
+
+    matrix4 mr = MatReflect(plane);
 
     vec3 p = {1.0f, 1.0f, 1.0f},
-         r = ms * p,
+         r = mr * p,
          c = {1.0f, 0.0f, 1.0f};
 
     BOOST_CHECK_EQUAL(c, r);
@@ -76,4 +75,17 @@ BOOST_AUTO_TEST_CASE(scale_test)
          c = {2.0f, -0.5f, 2.0f};
 
     BOOST_CHECK_EQUAL(r, c);
+}
+
+BOOST_AUTO_TEST_CASE(reference_test)
+{
+    vec3 axis = {0.0f, 1.0f, 1.0f};
+    matrix4 m = MatRotAxis(axis, PI / 2);
+
+    GLfloat *ref = &m;
+
+    size_t i, j;
+    for (i = 0; i < 4; i++)
+        for (j = 0; j < 4; j++)
+            BOOST_CHECK_EQUAL(m[i][j], ref[i * 4 + j]);
 }

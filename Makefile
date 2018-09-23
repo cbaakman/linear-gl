@@ -1,9 +1,9 @@
 CXX = /usr/bin/g++
 CFLAGS = -std=c++17
 LIB_NAME = linear-gl
-VERSION = 1.1.2
+VERSION = 1.1.3
 
-TESTS = vec quat mat triangle
+TESTS = vec quat mat triangle plane
 
 
 all: lib/lib$(LIB_NAME).so.$(VERSION)

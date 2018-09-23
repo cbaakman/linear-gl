@@ -69,3 +69,14 @@ BOOST_AUTO_TEST_CASE(projection_test)
     // Test they have the same direction.
     BOOST_CHECK_EQUAL(Unit(projection), Unit(o));
 }
+
+BOOST_AUTO_TEST_CASE(reference_test)
+{
+    vec3 v = {1.0f, 0.5f, -1.0f};
+
+    GLfloat *ref = &v;
+
+    size_t i;
+    for (i = 0; i < 3; i++)
+        BOOST_CHECK_EQUAL(v[i], ref[i]);
+}

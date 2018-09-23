@@ -136,7 +136,13 @@ namespace LinearGL
     bool operator!=(const vec<N> &v1, const vec<N> &v2);
 
     template <size_t N>
-    std::ostream& operator<<(std::ostream& os, const vec<N> v);
+    std::ostream &operator<<(std::ostream& os, const vec<N> v);
+
+    template <size_t N>
+    GLfloat *operator&(vec<N> &);
+
+    template <size_t N>
+    const GLfloat *operator&(const vec<N> &);
 
     template <size_t N>
     vec<N> Unit(const vec<N> &v);

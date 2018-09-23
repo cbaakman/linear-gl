@@ -24,16 +24,29 @@ namespace LinearGL
 {
     struct plane3
     {
-        vec3 n;  // must be length 1.0
-        GLfloat d;
+        // Ax + By + Cz + D = 0
+        union
+        {
+            GLfloat equation[4];
+            struct { GLfloat a, b, c, d; };
+        };
 
         plane3(void);
+        plane3(const GLfloat a, const GLfloat b, const GLfloat c, const GLfloat d);
+        plane3(const vec3 &normal, const GLfloat d);
         plane3(const triangle3 &);
         plane3(const vec3 &trianglePoint0,
                const vec3 &trianglePoint1,
                const vec3 &trianglePoint2);
+
+        GLfloat &operator[] (const size_t i);
+        const GLfloat &operator[] (const size_t i) const;
+
+        vec3 normal(void) const;
     };
 
+    GLfloat *operator&(plane3 &);
+    const GLfloat *operator&(const plane3 &);
 
     GLfloat Distance(const vec3 &point, const plane3 &);
 

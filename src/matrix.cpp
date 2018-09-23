@@ -273,24 +273,24 @@ namespace LinearGL
     {
         matrix4 o;
 
-        o[0][0] = 1.0f - 2 * plane.n.x * plane.n.x;
-        o[0][1] =       -2 * plane.n.y * plane.n.x;
-        o[0][2] =       -2 * plane.n.z * plane.n.x;
+        o[0][0] = 1.0f - 2 * plane[0] * plane[0];
+        o[0][1] =       -2 * plane[1] * plane[0];
+        o[0][2] =       -2 * plane[2] * plane[0];
         o[0][3] = 0.0f;
 
-        o[1][0] =       -2 * plane.n.x * plane.n.y;
-        o[1][1] = 1.0f - 2 * plane.n.y * plane.n.y;
-        o[1][2] =       -2 * plane.n.z * plane.n.y;
+        o[1][0] =       -2 * plane[0] * plane[1];
+        o[1][1] = 1.0f - 2 * plane[1] * plane[1];
+        o[1][2] =       -2 * plane[2] * plane[1];
         o[1][3] = 0.0f;
 
-        o[2][0] =       -2 * plane.n.x * plane.n.z;
-        o[2][1] =       -2 * plane.n.y * plane.n.z;
-        o[2][2] = 1.0f - 2 * plane.n.z * plane.n.z;
+        o[2][0] =       -2 * plane[0] * plane[2];
+        o[2][1] =       -2 * plane[1] * plane[2];
+        o[2][2] = 1.0f - 2 * plane[2] * plane[2];
         o[2][3] = 0.0f;
 
-        o[3][0] =       -2 * plane.n.x * plane.d;
-        o[3][1] =       -2 * plane.n.y * plane.d;
-        o[3][2] =       -2 * plane.n.z * plane.d;
+        o[3][0] =       -2 * plane[0] * plane[3];
+        o[3][1] =       -2 * plane[1] * plane[3];
+        o[3][2] =       -2 * plane[2] * plane[3];
         o[3][3] = 1.0f;
 
         return o;
@@ -429,11 +429,11 @@ namespace LinearGL
 
     GLfloat *operator&(matrix4 &m)
     {
-        return (GLfloat *)&(m.elements);
+        return (GLfloat *)(m.elements);
     }
 
     const GLfloat *operator&(const matrix4 &m)
     {
-        return (const GLfloat *)&(m.elements);
+        return (const GLfloat *)(m.elements);
     }
 }

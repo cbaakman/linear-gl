@@ -275,7 +275,7 @@ namespace LinearGL
 
 
     template <size_t N>
-    std::ostream& operator<<(std::ostream& os, const vec<N> v)
+    std::ostream &operator<<(std::ostream& os, const vec<N> v)
     {
         os << "{";
         size_t i = 0;
@@ -289,9 +289,31 @@ namespace LinearGL
         return os;
     }
 
-    template std::ostream& operator<<(std::ostream& os, const vec<2> v);
-    template std::ostream& operator<<(std::ostream& os, const vec<3> v);
-    template std::ostream& operator<<(std::ostream& os, const vec<4> v);
+    template std::ostream &operator<<(std::ostream &, const vec<2>);
+    template std::ostream &operator<<(std::ostream &, const vec<3>);
+    template std::ostream &operator<<(std::ostream &, const vec<4>);
+
+
+    template <size_t N>
+    GLfloat *operator&(vec<N> &v)
+    {
+        return v.coords;
+    }
+
+    template GLfloat *operator&(vec<2> &);
+    template GLfloat *operator&(vec<3> &);
+    template GLfloat *operator&(vec<4> &);
+
+
+    template <size_t N>
+    const GLfloat *operator&(const vec<N> &v)
+    {
+        return v.coords;
+    }
+
+    template const GLfloat *operator&(const vec<2> &);
+    template const GLfloat *operator&(const vec<3> &);
+    template const GLfloat *operator&(const vec<4> &);
 
 
     template <size_t N>
